@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
+import CommunicationList from "./CommunicationCards/CommunicationList";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (
@@ -14,6 +15,10 @@ export default function ApplicationViews({ isLoggedIn }) {
 
         <Route path="/login">
           <Login />
+        </Route>
+
+        <Route path="/Communication" exact>
+          <CommunicationList />
         </Route>
 
         <Route path="/register">

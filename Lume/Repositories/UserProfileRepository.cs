@@ -8,7 +8,7 @@ namespace Lume.Repositories
     {
         public UserProfileRepository(IConfiguration configuration) : base(configuration) { }
 
-        public UserProfile GetByFirebaseUserId(string firebaseUserId)
+        public UserProfile GetByFirebaseId(string firebaseId)
         {
             using (var conn = Connection)
             {
@@ -16,14 +16,12 @@ namespace Lume.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT up.Id, Up.FirebaseUserId, up.FirstName, up.LastName, up.DisplayName, 
-                               up.Email, up.ImageUrl,
-                               ut.Name AS UserTypeName
-                          FROM UserProfile up
-                               LEFT JOIN UserType ut on up.UserTypeId = ut.Id
-                         WHERE FirebaseUserId = @FirebaseuserId";
+                        SELECT up.Id, Up.FirebaseId, up.[Name]
+                               up.Email, up.ImageUrl,     
+                          FROM UserProfile up      
+                         WHERE FirebaseId = @FirebaseId";
 
-                    DbUtils.AddParameter(cmd, "@FirebaseUserId", firebaseUserId);
+                    DbUtils.AddParameter(cmd, "@FirebaseId", firebaseId);
 
                     UserProfile userProfile = null;
 
@@ -33,17 +31,10 @@ namespace Lume.Repositories
                         userProfile = new UserProfile()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
-                            FirstName = DbUtils.GetString(reader, "FirstName"),
-                            LastName = DbUtils.GetString(reader, "LastName"),
+                            FirebaseId = DbUtils.GetString(reader, "FirebaseId"),
+                            Name = DbUtils.GetString(reader, "Name"),
                              Email = DbUtils.GetString(reader, "Email"),
                             ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
-                            //UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
-                            //UserType = new UserType()
-                            //{
-                            //    Id = DbUtils.GetInt(reader, "UserTypeId"),
-                            //    Name = DbUtils.GetString(reader, "UserTypeName"),
-                            //}
                         };
                     }
                     reader.Close();
@@ -60,14 +51,13 @@ namespace Lume.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO UserProfile (FirebaseUserId, FirstName, LastName,
+                    cmd.CommandText = @"INSERT INTO UserProfile (FirebaseId,Name,
                                                                  Email,ImageUrl)
                                         OUTPUT INSERTED.ID
-                                        VALUES (@FirebaseUserId, @FirstName, @LastName, 
+                                        VALUES (@FirebaseId, @Name,
                                                 @Email,@ImageUrl)";
-                    DbUtils.AddParameter(cmd, "@FirebaseUserId", userProfile.FirebaseUserId);
-                    DbUtils.AddParameter(cmd, "@FirstName", userProfile.FirstName);
-                    DbUtils.AddParameter(cmd, "@LastName", userProfile.LastName);
+                    DbUtils.AddParameter(cmd, "@FirebaseId", userProfile.FirebaseId);
+                    DbUtils.AddParameter(cmd, "@Name", userProfile.Name);
                     DbUtils.AddParameter(cmd, "@Email", userProfile.Email);
                     DbUtils.AddParameter(cmd, "@ImageUrl", userProfile.ImageUrl);
 
@@ -77,7 +67,7 @@ namespace Lume.Repositories
         }
 
         /*
-        public UserProfile GetByFirebaseUserId(string firebaseUserId)
+        public UserProfile GetByFirebaseId(string firebaseId)
         {
             return _context.UserProfile
                        .Include(up => up.UserType) 

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
 import {
   Collapse,
-  Navbar,
   NavbarToggler,
   NavbarBrand,
   Nav,
@@ -11,6 +10,7 @@ import {
   NavLink,
 } from "reactstrap";
 import { logout } from "../modules/authManager";
+import header from "../components/Header.css";
 
 export default function Header({ isLoggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,44 +18,35 @@ export default function Header({ isLoggedIn }) {
 
   return (
     <div>
-      <Navbar color="light" light expand="md">
+      <Nav className=" navbar">
         <NavbarBrand tag={RRNavLink} to="/">
-          Tabloid
+          Lume
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             {/* When isLoggedIn === true, we will render the Home link */}
-            {isLoggedIn && (
-              <>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/">
-                    Home
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/signs">
-                    Signs
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/about">
-                    About
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/post/myposts">
-                    My Posts
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/category">
-                    Category Management
-                  </NavLink>
-                </NavItem>
-              </>
-            )}
           </Nav>
+          {isLoggedIn && (
+            <>
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/">
+                  Home
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/Communication">
+                  Communication
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/Signs">
+                  Signs
+                </NavLink>
+              </NavItem>
+            </>
+          )}
+
           <Nav navbar>
             {isLoggedIn && (
               <>
@@ -87,7 +78,7 @@ export default function Header({ isLoggedIn }) {
             )}
           </Nav>
         </Collapse>
-      </Navbar>
+      </Nav>
     </div>
   );
 }

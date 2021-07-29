@@ -15,16 +15,16 @@ namespace Lume.Controllers
             _userProfileRepository = userProfileRepository;
         }
 
-        [HttpGet("{firebaseUserId}")]
-        public IActionResult GetUserProfile(string firebaseUserId)
+        [HttpGet("{firebaseId}")]
+        public IActionResult GetUserProfile(string firebaseId)
         {
-            return Ok(_userProfileRepository.GetByFirebaseUserId(firebaseUserId));
+            return Ok(_userProfileRepository.GetByFirebaseId(firebaseId));
         }
 
-        [HttpGet("DoesUserExist/{firebaseUserId}")]
-        public IActionResult DoesUserExist(string firebaseUserId)
+        [HttpGet("DoesUserExist/{firebaseId}")]
+        public IActionResult DoesUserExist(string firebaseId)
         {
-            var userProfile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+            var userProfile = _userProfileRepository.GetByFirebaseId(firebaseId);
             if (userProfile == null)
             {
                 return NotFound();
