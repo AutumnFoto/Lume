@@ -1,0 +1,33 @@
+.navbar {
+  list-style-type: none;
+  overflow: hidden;
+  background-color: #f7ddd9;
+  width: 98.5%;
+  height: 2.5cm;
+  text-align: right;
+  font-family: "Martel", serif;
+  font-size: 23px;
+}
+
+.nav-item {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration-color: white;
+}
+
+.navLink {
+  color: white;
+}
+
+.logo {
+  height: 7cm;
+  width: 8cm;
+  padding: 1px 700px;
+  background-color: white;
+}
+
+.nav-container {
+  background-color: white;
+}

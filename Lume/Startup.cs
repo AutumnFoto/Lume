@@ -31,6 +31,7 @@ namespace Lume
         {
 
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
+            services.AddTransient<ICommunicationRepository, CommunicationRepository>();
 
 
 
