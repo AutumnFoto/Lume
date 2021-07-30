@@ -54,3 +54,4 @@ C:\Users\acart\workspace\csharp\Lume\Lume\obj\Debug\net5.0\Lume.dll
 C:\Users\acart\workspace\csharp\Lume\Lume\obj\Debug\net5.0\ref\Lume.dll
 C:\Users\acart\workspace\csharp\Lume\Lume\obj\Debug\net5.0\Lume.pdb
 C:\Users\acart\workspace\csharp\Lume\Lume\obj\Debug\net5.0\Lume.genruntimeconfig.cache
+C:\Users\acart\workspace\csharp\Lume\Lume\bin\Debug\net5.0\Microsoft.AspNet.SignalR.Core.dll

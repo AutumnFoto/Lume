@@ -2,17 +2,22 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardBody, Button } from "reactstrap";
 import CommunicationCard from "./Communication";
-import { getAllComCards } from "../../modules/CommunicationManager";
+import { getCurrentUserCom } from "../../modules/CommunicationManager";
 
 const CommunicationList = () => {
   const [communication, setCommunication] = useState([]);
 
-  const getCommunication = () => {
-    return getAllComCards().then((res) => setCommunication(res));
+  // const getCommunication = () => {
+  //   return getAllComCards().then((res) => setCommunication(res));
+  // };
+  const getCardWithUser = () => {
+    getCurrentUserCom().then((communication) =>
+      setCommunication(communication)
+    );
   };
 
   useEffect(() => {
-    getCommunication();
+    getCardWithUser();
   }, []);
 
   return (
@@ -23,7 +28,7 @@ const CommunicationList = () => {
             {/* <h3> {communication.Content}</h3>
             <p>{communication.Image}</p> */}
 
-            <Link to={`/communication`}>
+            <Link to={`/communication/create`}>
               <Button className="btn btn-success">Create Card</Button>
             </Link>
           </CardBody>
@@ -34,7 +39,7 @@ const CommunicationList = () => {
           <CommunicationCard
             communication={communication}
             key={communication.id}
-            getCommunication={getCommunication}
+            // getCommunication={getCommunication}
           />
         ))}
       </div>

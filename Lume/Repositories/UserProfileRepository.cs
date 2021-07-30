@@ -17,7 +17,7 @@ namespace Lume.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT up.Id, Up.FirebaseId, up.[Name]
-                               up.Email, up.ImageUrl,     
+                               up.Email,    
                           FROM UserProfile up      
                          WHERE FirebaseId = @FirebaseId";
 
@@ -34,7 +34,7 @@ namespace Lume.Repositories
                             FirebaseId = DbUtils.GetString(reader, "FirebaseId"),
                             Name = DbUtils.GetString(reader, "Name"),
                              Email = DbUtils.GetString(reader, "Email"),
-                            ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                            
                         };
                     }
                     reader.Close();
@@ -52,14 +52,13 @@ namespace Lume.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"INSERT INTO UserProfile (FirebaseId,Name,
-                                                                 Email,ImageUrl)
+                                                                 Email)
                                         OUTPUT INSERTED.ID
                                         VALUES (@FirebaseId, @Name,
-                                                @Email,@ImageUrl)";
+                                                @Email)";
                     DbUtils.AddParameter(cmd, "@FirebaseId", userProfile.FirebaseId);
                     DbUtils.AddParameter(cmd, "@Name", userProfile.Name);
                     DbUtils.AddParameter(cmd, "@Email", userProfile.Email);
-                    DbUtils.AddParameter(cmd, "@ImageUrl", userProfile.ImageUrl);
 
                     userProfile.Id = (int)cmd.ExecuteScalar();
                 }

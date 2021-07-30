@@ -49,6 +49,8 @@ namespace Lume.Utils
             return reader.GetDateTime(reader.GetOrdinal(column));
         }
 
+      
+
         /// <summary>
         ///  Get an int? (nullable int) from a data reader object and gracefully handle NULL values
         /// </summary>
@@ -66,9 +68,23 @@ namespace Lume.Utils
             return reader.GetInt32(ordinal);
         }
 
-        internal static void AddParameter(SqlCommand cmd, string v, object content)
+
+        /// <summary>
+        ///  Add a parameter to the given SqlCommand object and gracefully handle null values.
+        /// </summary>
+        /// <param name="cmd">The command to which to add the parameter.</param>
+        /// <param name="name">The name of the parameter.</param>
+        /// <param name="value">The value of the parameter. May be null.</param>
+        public static void AddParameter(SqlCommand cmd, string name, object value)
         {
-            throw new NotImplementedException();
+            if (value == null)
+            {
+                cmd.Parameters.AddWithValue(name, DBNull.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue(name, value);
+            }
         }
 
         /// <summary>

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lume.Models;
 using Lume.Repositories;
-//using Lume.Models;
+
 
 namespace Lume.Controllers
 {
@@ -39,13 +39,13 @@ namespace Lume.Controllers
         //    return Ok(communication);
         //}
 
-        //// POST api/<CommunicationController>
-        //[HttpPost]
-        //public IActionResult Post(CommunicationRepository communication)
-        //{
-        //    _communicationRepository.Add(communication);
-        //    return CreatedAtAction("Get", new { id = communication.Id }, communication);
-        //}
+        // POST api/<CommunicationController>
+        [HttpPost]
+        public IActionResult Post(Communication communication)
+        {
+            _communicationRepository.Add(communication);
+            return CreatedAtAction("Get", new { id = communication.Id }, communication);
+        }
 
         //[HttpPut("{id}")]
         //public IActionResult Put(int id, CommunicationRepository communication)
@@ -60,12 +60,12 @@ namespace Lume.Controllers
         //}
 
 
-        //// DELETE api/<CommunicationController>/5
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(int id)
-        //{
-        //    _communicationRepository.Delete(id);
-        //    return NoContent();
-        //}
+        // DELETE api/<CommunicationController>/5
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCom(int id)
+        {
+            _communicationRepository.DeleteCom(id);
+            return NoContent();
+        }
     }
 }
