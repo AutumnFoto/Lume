@@ -8,10 +8,8 @@ import {
 
 const CommunicationList = () => {
   const [communication, setCommunication] = useState([]);
-  const { userProfileId } = useParams();
 
   const getComCard = () => {
-    console.log(communication);
     getByUser().then((communication) => setCommunication(communication));
   };
 
@@ -25,7 +23,7 @@ const CommunicationList = () => {
 
   return (
     <>
-      <Link to={`/communication/create/${userProfileId}`}>Add A New Card</Link>
+      <Link to={`/communication/create`}>Add A New Card</Link>
       <div>
         <div>
           {communication.map((communication) => (

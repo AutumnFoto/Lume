@@ -5,9 +5,9 @@ import { addComCard } from "../modules/CommunicationManager";
 
 const ComAddForm = () => {
   const history = useHistory();
-  const { userProfileId } = useParams();
+  // const { userProfileId } = useParams();
   const [communication, setCommunication] = useState({
-    userProfileId: userProfileId,
+    // userProfileId: userProfileId,
     content: "",
     image: "",
   });
@@ -20,7 +20,7 @@ const ComAddForm = () => {
   };
 
   const handleSave = () => {
-    communication.id = userProfileId;
+    // communication.id = userProfileId;
     addComCard(communication).then(() =>
       // Navigate the user back to the home route
       history.push(`/communication`)

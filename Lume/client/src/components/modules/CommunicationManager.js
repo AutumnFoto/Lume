@@ -79,22 +79,3 @@ export const deleteCommunication = (id) => {
     });
   });
 };
-
-// export const getCurrentUserCom = () => {
-//   return getToken().then((token) => {
-//     return fetch(`${baseUrl}/${firebase.auth().currentUser.uid}`, {
-//       method: "GET",
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     }).then((resp) => {
-//       if (resp.ok) {
-//         return resp.json();
-//       } else {
-//         throw new Error(
-//           "An unknown error occurred while trying to get the current user"
-//         );
-//       }
-//     });
-//   });
-// };

@@ -57,11 +57,12 @@ namespace Lume.Controllers
 
 
 
-
         // POST api/<CommunicationController>
         [HttpPost]
         public IActionResult Add(Communication communication)
         {
+            var currentUserProfile = GetCurrentUser();
+            communication.UserProfileId = currentUserProfile.Id;
 
             _communicationRepository.Add(communication);
             return CreatedAtAction(nameof(getByUser), new { id = communication.Id }, communication);

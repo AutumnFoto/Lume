@@ -18,11 +18,11 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Login />
         </Route>
 
-        <Route path="/communication/:userProfileId" exact>
+        <Route exact path="/communication/">
           <CommunicationList />
         </Route>
 
-        <Route path="/communication/create/:userProfileId" exact>
+        <Route exact path="/communication/create">
           <ComAddForm />
         </Route>
 
