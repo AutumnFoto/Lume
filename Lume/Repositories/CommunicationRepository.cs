@@ -172,6 +172,34 @@ namespace Lume.Repositories
             }
         }
 
-      
+        public void UpdateCommunication(Communication communication)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE CommunicationCards 
+                             SET
+                             [Image] = @image,
+                             Content= @content
+                             WHERE Id =@id";
+
+                    DbUtils.AddParameter(cmd, "@Image", communication.Image);
+                    DbUtils.AddParameter(cmd,"@content",communication.Content);
+                    DbUtils.AddParameter(cmd,"@Id",communication.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
+
+
+
+
     }
 }

@@ -69,17 +69,17 @@ namespace Lume.Controllers
         }
 
 
-        //[HttpPut("{id}")]
-        //public IActionResult Put(int id, Communication communication)
-        //{
-        //    if (id != communication.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Communication communication)
+        {
+            if (id != communication.Id)
+            {
+                return BadRequest();
+            }
 
-        //    _communicationRepository.UpdateCommunication(communication);
-        //    return NoContent();
-        //}
+            _communicationRepository.UpdateCommunication(communication);
+            return NoContent();
+        }
 
 
         // DELETE api/<CommunicationController>/5

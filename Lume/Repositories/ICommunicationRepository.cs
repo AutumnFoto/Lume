@@ -11,7 +11,7 @@ namespace Lume.Repositories
         userProfile GetByFirebaseUserId(string firebaseUserId);
         void Add(Communication communication);
 
-        //UpdateCommunication(Communication communication);
+        void UpdateCommunication(Communication communication);
         public void DeleteCom(int id);
        
     }
