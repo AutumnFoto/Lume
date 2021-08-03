@@ -1,19 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
-import {
-  addComCard,
-  getAllComCards,
-  getCurrentUserCom,
-} from "../../modules/CommunicationManager";
+import { useHistory, useParams } from "react-router-dom";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { addComCard } from "../modules/CommunicationManager";
 
 const CommAddForm = () => {
-  const [communication, setCommunication] = useState([]);
   const history = useHistory();
+  const { userProfileId } = useParams();
+  const [communication, setCommunication] = useState({
+    userProfileId: userProfileId,
+    content: "",
+    image: "",
+  });
 
-  const getCards = () => {
-    getAllComCards().then((communication) => setCommunication(communication));
+  const handleInputChange = (event) => {
+    let newCommunication = { ...communication };
+    let selectedValue = event.target.value;
+    newCommunication[event.target.id] = selectedValue;
+    setCommunication(newCommunication);
   };
+
+  const handleSave = () => {
+    // event.preventDefault();
+    addComCard(communication).then(() =>
+      // Navigate the user back to the home route
+      history.push(`/${userProfileId}`)
+    );
+  };
+
+  // const handleInputChange = (event) => {
+  //   const value = event.target.value;
+  //   const key = event.target.id;
+
+  //   const getCards = () => {
+  //     getAllComCards().then((communication) => setCommunication(communication));
+  //   };
 
   // const getCurrentUserCard = () => {
   //   getCurrentUserCom().then((communication) =>
@@ -21,27 +41,15 @@ const CommAddForm = () => {
   //   );
   // };
 
-  useEffect(() => {
-    getCards();
-  }, []);
+  //   useEffect(() => {
+  //     getCards();
+  //   }, []);
 
-  const handleInputChange = (event) => {
-    const value = event.target.value;
-    const key = event.target.id;
+  //   const comCopy = { ...communication };
 
-    const comCopy = { ...communication };
-
-    comCopy[key] = value;
-    setCommunication(comCopy);
-  };
-
-  const handleSave = (event) => {
-    event.preventDefault();
-    addComCard(communication).then(() => {
-      // Navigate the user back to the home route
-      history.push("/Communication");
-    });
-  };
+  //   comCopy[key] = value;
+  //   setCommunication(comCopy);
+  // };
 
   return (
     <>

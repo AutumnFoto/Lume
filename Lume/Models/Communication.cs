@@ -13,5 +13,6 @@ namespace Lume.Models
         public string Content { get; set; }
 
         public string Image { get; set; }
+        public int UserProfileId { get; set; }
     }
 }

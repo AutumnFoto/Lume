@@ -1,23 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Lume.Models;
 using Lume.Repositories;
-
+using System.Security.Claims;
 
 namespace Lume.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CommunicationController : ControllerBase
     {
         private readonly ICommunicationRepository _communicationRepository;
+        private readonly IUserProfileRepository _userProfileRepository;
 
-        public CommunicationController(ICommunicationRepository communicationRepository)
+        public CommunicationController(ICommunicationRepository communicationRepository, IUserProfileRepository userProfileRepository)
         {
             _communicationRepository = communicationRepository;
+            _userProfileRepository = userProfileRepository;
         }
 
         // GET: api/<CommunicationController>
@@ -27,37 +29,46 @@ namespace Lume.Controllers
             return Ok(_communicationRepository.GetAllCommunication());
         }
 
-        //// GET api/<CommunicationController>/5
-        //[HttpGet("{id}")]
-        //public IActionResult Get(int id)
-        //{
-        //    var communication = _communicationRepository.GetById(id);
-        //    if (communication == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(communication);
-        //}
+
+        [HttpGet("user")]
+        
+        public IActionResult getByUser(int id)
+
+        {
+            var user = GetCurrentUser();
+            return Ok(_communicationRepository.GetByUserId(user.Id));
+        }
+
+
+        private UserProfile GetCurrentUser()
+        //private methods are used as helpers
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if (firebaseUserId != null)
+            {
+                return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+
 
         // POST api/<CommunicationController>
         [HttpPost]
-        public IActionResult Post(Communication communication)
+        public IActionResult Add(Communication communication)
         {
+
             _communicationRepository.Add(communication);
-            return CreatedAtAction("Get", new { id = communication.Id }, communication);
+            return CreatedAtAction(nameof(getByUser), new { id = communication.Id }, communication);
         }
 
-        //[HttpPut("{id}")]
-        //public IActionResult Put(int id, CommunicationRepository communication)
-        //{
-        //    if (id != communication.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+    
 
-        //    _communicationRepository.Update(communication);
-        //    return NoContent();
-        //}
 
 
         // DELETE api/<CommunicationController>/5
@@ -69,3 +80,4 @@ namespace Lume.Controllers
         }
     }
 }
+

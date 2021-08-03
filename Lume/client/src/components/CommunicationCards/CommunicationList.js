@@ -1,49 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Card, CardBody, Button } from "reactstrap";
+import { Link, useParams } from "react-router-dom";
 import CommunicationCard from "./Communication";
-import { getCurrentUserCom } from "../../modules/CommunicationManager";
+import { getByUser } from "../modules/CommunicationManager";
 
 const CommunicationList = () => {
   const [communication, setCommunication] = useState([]);
-
-  // const getCommunication = () => {
-  //   return getAllComCards().then((res) => setCommunication(res));
-  // };
-  const getCardWithUser = () => {
-    getCurrentUserCom().then((communication) =>
-      setCommunication(communication)
-    );
+ 
+  const getComCard = () => {
+    getByUser().then((communication) => setCommunication(communication));
   };
 
   useEffect(() => {
-    getCardWithUser();
+    getComCard();
   }, []);
 
   return (
-    <div className="container m-2">
-      <div className="row justify-content-center">
-        <Card className="communication">
-          <CardBody>
-            {/* <h3> {communication.Content}</h3>
-            <p>{communication.Image}</p> */}
-
-            <Link to={`/communication/create`}>
-              <Button className="btn btn-success">Create Card</Button>
-            </Link>
-          </CardBody>
-        </Card>
+    <>
+      <Link to="/communication/create"> Create Card </Link>
+      <div>
+        <div>
+          {communication.map((communication) => (
+            <CommunicationCard
+              communication={communication}
+              key={communication.id}
+            />
+          ))}
+        </div>
       </div>
-      <div className="row justify-content-center">
-        {communication.map((communication) => (
-          <CommunicationCard
-            communication={communication}
-            key={communication.id}
-            // getCommunication={getCommunication}
-          />
-        ))}
-      </div>
-    </div>
+    </>
   );
 };
+
 export default CommunicationList;
