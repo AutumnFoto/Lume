@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace Lume.Models
 {
-    public class UserProfile
+    public class userProfile
     {
         public int Id { get; set; }
 

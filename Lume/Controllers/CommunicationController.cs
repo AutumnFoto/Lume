@@ -31,7 +31,7 @@ namespace Lume.Controllers
 
 
         [HttpGet("user")]
-        
+
         public IActionResult getByUser(int id)
 
         {
@@ -40,7 +40,7 @@ namespace Lume.Controllers
         }
 
 
-        private UserProfile GetCurrentUser()
+        private userProfile GetCurrentUser()
         //private methods are used as helpers
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -67,8 +67,18 @@ namespace Lume.Controllers
             return CreatedAtAction(nameof(getByUser), new { id = communication.Id }, communication);
         }
 
-    
 
+        //[HttpPut("{id}")]
+        //public IActionResult Put(int id, Communication communication)
+        //{
+        //    if (id != communication.Id)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    _communicationRepository.UpdateCommunication(communication);
+        //    return NoContent();
+        //}
 
 
         // DELETE api/<CommunicationController>/5
@@ -78,6 +88,8 @@ namespace Lume.Controllers
             _communicationRepository.DeleteCom(id);
             return NoContent();
         }
+
+
     }
 }
 

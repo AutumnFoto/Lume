@@ -3,7 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { addComCard } from "../modules/CommunicationManager";
 
-const CommAddForm = () => {
+const ComAddForm = () => {
   const history = useHistory();
   const { userProfileId } = useParams();
   const [communication, setCommunication] = useState({
@@ -20,10 +20,10 @@ const CommAddForm = () => {
   };
 
   const handleSave = () => {
-    // event.preventDefault();
+    communication.id = userProfileId;
     addComCard(communication).then(() =>
       // Navigate the user back to the home route
-      history.push(`/${userProfileId}`)
+      history.push(`/communication`)
     );
   };
 
@@ -41,9 +41,9 @@ const CommAddForm = () => {
   //   );
   // };
 
-  //   useEffect(() => {
-  //     getCards();
-  //   }, []);
+  // useEffect(() => {
+  //   getCards();
+  // }, []);
 
   //   const comCopy = { ...communication };
 
@@ -84,4 +84,4 @@ const CommAddForm = () => {
   );
 };
 
-export default CommAddForm;
+export default ComAddForm;

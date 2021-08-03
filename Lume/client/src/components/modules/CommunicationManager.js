@@ -41,16 +41,16 @@ export const getByUser = () => {
 //  adding communication card
 
 export const addComCard = (communication) => {
-  return getToken().then((token) =>
-    fetch(baseUrl, {
+  return getToken().then((token) => {
+    return fetch(baseUrl, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(communication),
-    }).then((resp) => resp.json())
-  );
+    });
+  });
 };
 
 // edit comm card

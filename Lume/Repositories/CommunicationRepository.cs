@@ -94,7 +94,7 @@ namespace Lume.Repositories
 
      
 
-        public UserProfile GetByFirebaseUserId(string firebaseUserId)
+        public userProfile GetByFirebaseUserId(string firebaseUserId)
         {
             using (var conn = Connection)
             {
@@ -109,12 +109,12 @@ namespace Lume.Repositories
 
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", firebaseUserId);
 
-                    UserProfile userProfile = null;
+                    userProfile userProfile = null;
 
                     var reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
-                        userProfile = new UserProfile()
+                        userProfile = new userProfile()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             FireBaseUserId = DbUtils.GetString(reader, "FireBaseUserId"),
@@ -142,11 +142,9 @@ namespace Lume.Repositories
                                 SELECT 
                                       c.[image],
                                       c.content,
-                                      c.UserProfileId,
-                                    [UserProfile].Id
+                                      c.Id,
+                                      c.UserProfileId
                                     FROM CommunicationCards c
-                                    LEFT JOIN [UserProfile]
-                                 ON c.UserProfileId = [UserProfile].id
                                    WHERE c.UserProfileId = @Id";
 
                     DbUtils.AddParameter(cmd, "@id", id);

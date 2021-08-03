@@ -8,7 +8,7 @@ namespace Lume.Repositories
     {
         public UserProfileRepository(IConfiguration configuration) : base(configuration) { }
 
-        public UserProfile GetByFirebaseUserId(string FireBaseUserId)
+        public userProfile GetByFirebaseUserId(string FireBaseUserId)
         {
             using (var conn = Connection)
             {
@@ -23,12 +23,12 @@ namespace Lume.Repositories
 
                     DbUtils.AddParameter(cmd, "@FireBaseUserId", FireBaseUserId);
 
-                    UserProfile userProfile = null;
+                    userProfile userProfile = null;
 
                     var reader = cmd.ExecuteReader(); 
                     if (reader.Read()) 
                     {
-                        userProfile = new UserProfile()
+                        userProfile = new userProfile()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             FireBaseUserId = DbUtils.GetString(reader, "FireBaseUserId"),
@@ -45,7 +45,7 @@ namespace Lume.Repositories
             }
         }
 
-        public void Add(UserProfile userProfile)
+        public void Add(userProfile userProfile)
         {
             using (var conn = Connection)
             {

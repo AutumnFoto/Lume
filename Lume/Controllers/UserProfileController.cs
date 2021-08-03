@@ -40,7 +40,7 @@ namespace Lume.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(UserProfile userProfile)
+        public IActionResult Post(userProfile userProfile)
         {
             
             _userProfileRepository.Add(userProfile);

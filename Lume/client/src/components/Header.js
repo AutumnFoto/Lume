@@ -34,7 +34,7 @@ export default function Header({ isLoggedIn }) {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={RRNavLink} to="/Communication">
+                <NavLink tag={RRNavLink} to="/Communication/:userProfileId">
                   Communication
                 </NavLink>
               </NavItem>

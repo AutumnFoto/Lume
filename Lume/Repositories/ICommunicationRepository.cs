@@ -8,8 +8,10 @@ namespace Lume.Repositories
         List<Communication> GetAllCommunication();
         List<Communication> GetByUserId(int id);
 
-        UserProfile GetByFirebaseUserId(string firebaseUserId);
+        userProfile GetByFirebaseUserId(string firebaseUserId);
         void Add(Communication communication);
+
+        //UpdateCommunication(Communication communication);
         public void DeleteCom(int id);
        
     }
