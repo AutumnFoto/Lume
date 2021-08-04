@@ -2,27 +2,29 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import CommunicationCard from "./Communication";
 import {
-  getByUser,
+  getComCardByUserId,
   deleteCommunication,
 } from "../modules/CommunicationManager";
+import { getCurrentUserProfileID } from "../modules/authManager";
+import { getComCardByCurrentUser } from "../modules/CommunicationManager";
 
 const CommunicationList = () => {
   const [communication, setCommunication] = useState([]);
 
+  const [isDeleted, setIsDeleted] = useState(false);
   const getComCard = () => {
-    getByUser().then((communication) => setCommunication(communication));
-  };
-
-  const handleDelete = (id) => {
-    deleteCommunication(id).then(() => getByUser());
+    getComCardByCurrentUser().then((communication) =>
+      setCommunication(communication)
+    );
   };
 
   useEffect(() => {
     getComCard();
-  }, []);
+  }, [isDeleted]);
 
   return (
     <>
+      <h3> I want..</h3>
       <Link to={`/communication/create`}>Add A New Card</Link>
       <div>
         <div>
@@ -30,7 +32,8 @@ const CommunicationList = () => {
             <CommunicationCard
               communication={communication}
               key={communication.id}
-              handleDelete={handleDelete}
+              setIsDeleted={setIsDeleted}
+              isDeleted={isDeleted}
             />
           ))}
         </div>

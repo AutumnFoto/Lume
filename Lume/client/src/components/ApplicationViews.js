@@ -19,7 +19,7 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Login />
         </Route>
 
-        <Route exact path="/communication/">
+        <Route exact path="/communication">
           <CommunicationList />
         </Route>
 

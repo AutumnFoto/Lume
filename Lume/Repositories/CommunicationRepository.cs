@@ -129,8 +129,45 @@ namespace Lume.Repositories
                 }
             }
         }
+        public Communication GetCommunicationByID(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
 
-        public List<Communication> GetByUserId(int id)
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                SELECT
+                                    c.Id,
+                                    c.[Image],
+                                    c.content,
+                                    c.UserProfileId
+                                FROM CommunicationCards c
+                                where c.Id = @Id";
+                    
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var communciation = new Communication();
+
+                    while (reader.Read())
+                    {
+                        communciation.Id = DbUtils.GetInt(reader, "id");
+                        communciation.Image = DbUtils.GetString(reader, "Image");
+                        communciation.Content = DbUtils.GetString(reader, "Content");
+                        communciation.UserProfileId = DbUtils.GetInt(reader, "UserProfileId");
+
+                    }
+
+                    reader.Close();
+
+                    return communciation;
+                }
+            }
+        }
+        public List<Communication> GetCommunicationByUserId(int userProfileId)
         {
             using (var conn = Connection)
             {
@@ -145,9 +182,9 @@ namespace Lume.Repositories
                                       c.Id,
                                       c.UserProfileId
                                     FROM CommunicationCards c
-                                   WHERE c.UserProfileId = @Id";
+                                   WHERE c.UserProfileId = @UserProfileId";
 
-                    DbUtils.AddParameter(cmd, "@id", id);
+                    DbUtils.AddParameter(cmd, "@UserProfileId", userProfileId);
 
                     var reader = cmd.ExecuteReader();
 
@@ -161,8 +198,8 @@ namespace Lume.Repositories
                             Id = DbUtils.GetInt(reader, "id"),
                             Image = DbUtils.GetString(reader, "Image"),
                             Content = DbUtils.GetString(reader, "Content"),
-                         
-                        }); ;
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                        });
                     }
 
                     reader.Close();
@@ -194,12 +231,5 @@ namespace Lume.Repositories
                 }
             }
         }
-
-
-
-
-
-
-
     }
 }

@@ -4,15 +4,20 @@ import { Button } from "reactstrap";
 import { Card, CardBody } from "reactstrap";
 import {
   deleteCommunication,
-  getByUser,
+  getComCardByCurrentUser,
 } from "../modules/CommunicationManager";
 
-const CommunicationCard = ({ communication }) => {
-  const handleDelete = () => {
+const CommunicationCard = ({ communication, isDeleted, setIsDeleted }) => {
+  const handleDelete = (id) => {
     if (window.confirm("Do you want to delete this card?")) {
-      deleteCommunication(communication.id).then(() => getByUser());
+      deleteCommunication(id).then(() => {
+        setIsDeleted(!isDeleted);
+        getComCardByCurrentUser();
+      });
     }
   };
+
+  //  bang changes false to true on the deleted use state
 
   const history = useHistory();
 
@@ -20,7 +25,7 @@ const CommunicationCard = ({ communication }) => {
     <Card className="CommunicationCard">
       <CardBody>
         <h3> {communication.content}</h3>
-        <p>{communication.image}</p>
+        <img src={communication.image} alt="communication" />
         <button
           onClick={() =>
             history.push(`/communication/edit/${communication.id}`)

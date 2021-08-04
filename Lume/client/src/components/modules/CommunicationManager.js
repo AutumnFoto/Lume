@@ -23,9 +23,9 @@ export const getAllCommunications = () => {
 };
 
 // getting cards by user
-export const getByUser = () => {
+export const getComCardByCurrentUser = () => {
   return getToken().then((token) => {
-    return fetch(`${baseUrl}/user`, {
+    return fetch(`${baseUrl}/ByCurrentUser`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -53,18 +53,42 @@ export const addComCard = (communication) => {
   });
 };
 
+export const getComCardById = (id) => {
+  return getToken().then((token) => {
+    return fetch(`${baseUrl}/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => res.json());
+  });
+};
+
 // edit comm card
-export const updateCommunication = (id) => {
-  return getToken().then((token) =>
-    fetch(`${baseUrl}/${id}`, {
+// export const updateCommunication = (id) => {
+//   return getToken().then((token) =>
+//     fetch(`${baseUrl}/${id}`, {
+//       method: "PUT",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body: JSON.stringify(id),
+//     })
+//   );
+// };
+
+export const editCommunication = (communication) => {
+  return getToken().then((token) => {
+    return fetch(`${baseUrl}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(id),
-    })
-  );
+      body: JSON.stringify(communication),
+    });
+  });
 };
 // delete communication card
 

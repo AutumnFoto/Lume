@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import {
-  updateCommunication,
-  getByUser,
+  getComCardById,
+  editCommunication,
 } from "../modules/CommunicationManager";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import CommunicationCard from "./Communication";
 
 const ComEdit = () => {
+  const [editCom, setEditCom] = useState([]);
   const { id } = useParams();
+
   const history = useHistory();
 
-  const [editCom, setEditCom] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  // initial state set to false
+  useEffect(() => {
+    return getComCardById(id).then((editCom) => setEditCom(editCom));
+  }, []);
+  console.log(editCom);
+  //   const communication = getComCardById(id);
+  //   setEditCom = communication;
 
   const handleInputChange = (evt) => {
     const value = evt.target.value;
@@ -24,39 +30,20 @@ const ComEdit = () => {
     setEditCom(comCopy);
   };
 
-  const getCom = () => {
-    return getByUser().then((c) => {
-      setEditCom(c);
-    });
-  };
-
   const handleUpdate = (evt) => {
     evt.preventDefault();
-    setIsLoading(true);
-    let comCopy = { ...editCom };
+    const communication = { ...editCom };
 
-    updateCommunication(comCopy).then(() => history.push(`/communication`));
+    const editedCommunication = {
+      id: id,
+      content: communication.content,
+      image: communication.image,
+    };
+
+    editCommunication(editedCommunication).then(() => {
+      history.push("/communication");
+    });
   };
-
-  useEffect(() => {
-    getCom();
-  }, []);
-  //     const editedCom = {
-  //       id: editCom.id,
-  //       content: editCom.content,
-  //       image: editCom.image,
-  //     };
-  //     updateCommunication(editedCom).then((c) => {
-  //       history.push("/Communication");
-  //     });
-  //   };
-
-  //   useEffect(() => {
-  //     getCom();
-  //     getByUser().then((c) => {
-  //       setEditCom(c);
-  //     });
-  //   }, []);
 
   return (
     <Form className="container w-25 text-center">
@@ -98,37 +85,3 @@ const ComEdit = () => {
 };
 
 export default ComEdit;
-
-// const CommunicationEdit = () => {
-//   const [commnuication, setCommunication] = useState([]);
-//   const { id } = useParams();
-//   const history = useHistory();
-//   // const [isLoading, setIsLoading] = useState(false);
-// };
-
-// const handleInputChange = (evt) => {
-//   const value = evt.target.value;
-//   const key = evt.target.id;
-
-//   const commmunicationCopy = { ...editCom };
-
-//   communicationCopy[key] = value;
-//   setEditCom(communicationCopy);
-// };
-
-// const getCardsByUser = () => {
-//   return getByUser().then((c) => {
-//     setCommunication(c);
-//   });
-// };
-
-// const handleUpdate = (evt) => {
-//   evt.PreventDefault();
-
-//   const editedCom = {
-//     id: editCom.id,
-//     userProfileId: editCom.userProfileId,
-//     content: editCom.content,
-//     image: editCom.image,
-//   };
-// };

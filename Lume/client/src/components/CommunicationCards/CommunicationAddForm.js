@@ -66,7 +66,7 @@ const ComAddForm = () => {
         </FormGroup>
 
         <FormGroup>
-          <Label for="image">Image</Label>
+          <Label for="url">Image</Label>
           <Input
             type="text"
             id="image"

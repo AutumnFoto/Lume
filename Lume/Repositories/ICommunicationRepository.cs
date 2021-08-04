@@ -6,7 +6,8 @@ namespace Lume.Repositories
     public interface ICommunicationRepository
     {
         List<Communication> GetAllCommunication();
-        List<Communication> GetByUserId(int id);
+        Communication GetCommunicationByID(int id);
+        List<Communication> GetCommunicationByUserId(int userProfileId);
 
         userProfile GetByFirebaseUserId(string firebaseUserId);
         void Add(Communication communication);
