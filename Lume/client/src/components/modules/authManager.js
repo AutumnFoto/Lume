@@ -3,28 +3,29 @@ import "firebase/auth";
 
 const _apiUrl = "/api/userprofile";
 
-const _doesUserExist = (firebaseUserId) => {
-  return getToken().then((token) =>
-    fetch(`${_apiUrl}/DoesUserExist/${firebaseUserId}`, {
+export const getCurrentUserProfile = () => {
+  return getToken().then((token) => {
+    return fetch(`${_apiUrl}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }).then((resp) => resp.ok)
-  );
+    }).then((resp) => {
+      if (resp.ok) {
+        return resp.json();
+      } else {
+        throw new Error(
+          "An unknown error occurred while trying to get the UserProfile"
+        );
+      }
+    });
+  });
 };
 
-const _saveUser = (userProfile) => {
-  return getToken().then((token) =>
-    fetch(_apiUrl, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userProfile),
-    }).then((resp) => resp.json())
-  );
+export const getCurrentUserProfileID = () => {
+  getCurrentUserProfile().then((userProfile) => {
+    return userProfile.id;
+  });
 };
 
 export const getToken = () => firebase.auth().currentUser.getIdToken();
@@ -70,4 +71,28 @@ export const onLoginStatusChange = (onLoginStatusChangeHandler) => {
   firebase.auth().onAuthStateChanged((user) => {
     onLoginStatusChangeHandler(!!user);
   });
+};
+
+const _doesUserExist = (firebaseUserId) => {
+  return getToken().then((token) =>
+    fetch(`${_apiUrl}/DoesUserExist/${firebaseUserId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((resp) => resp.ok)
+  );
+};
+
+const _saveUser = (userProfile) => {
+  return getToken().then((token) =>
+    fetch(_apiUrl, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userProfile),
+    }).then((resp) => resp.json())
+  );
 };

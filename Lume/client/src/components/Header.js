@@ -9,8 +9,7 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
-import { logout } from "../modules/authManager";
-import header from "../components/Header.css";
+import { logout } from "../components/modules/authManager";
 
 export default function Header({ isLoggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,11 +30,11 @@ export default function Header({ isLoggedIn }) {
             <>
               <NavItem>
                 <NavLink tag={RRNavLink} to="/">
-                  Home
+                  Communication
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={RRNavLink} to="/Communication">
+                <NavLink tag={RRNavLink} to="/Communication/">
                   Communication
                 </NavLink>
               </NavItem>

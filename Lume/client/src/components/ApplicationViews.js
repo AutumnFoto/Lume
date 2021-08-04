@@ -4,6 +4,8 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import CommunicationList from "./CommunicationCards/CommunicationList";
+import ComAddForm from "../components/CommunicationCards/CommunicationAddForm";
+import ComEdit from "../components/CommunicationCards/ComEdit";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (
@@ -17,8 +19,16 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Login />
         </Route>
 
-        <Route path="/Communication" exact>
+        <Route exact path="/communication">
           <CommunicationList />
+        </Route>
+
+        <Route exact path="/communication/create">
+          <ComAddForm />
+        </Route>
+
+        <Route exact path="/communication/edit/:id">
+          <ComEdit />
         </Route>
 
         <Route path="/register">

@@ -1,22 +1,43 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Button } from "reactstrap";
 import { Card, CardBody } from "reactstrap";
-import { deleteComCard } from "../../modules/CommunicationManager";
+import {
+  deleteCommunication,
+  getComCardByCurrentUser,
+} from "../modules/CommunicationManager";
 
-const CommunicationCard = ({ communication, getCommunication }) => {
-  const handleDelete = () => {
+const CommunicationCard = ({ communication, isDeleted, setIsDeleted }) => {
+  const handleDelete = (id) => {
     if (window.confirm("Do you want to delete this card?")) {
-      deleteComCard(communication.id).then(() => getCommunication());
+      deleteCommunication(id).then(() => {
+        setIsDeleted(!isDeleted);
+        getComCardByCurrentUser();
+      });
     }
   };
+
+  //  bang changes false to true on the deleted use state
+
+  const history = useHistory();
 
   return (
     <Card className="CommunicationCard">
       <CardBody>
         <h3> {communication.content}</h3>
-        <p>{communication.image}</p>
-        {console.log(communication)}
-        <Button className="btn btn-danger" onClick={handleDelete}>
+        <img src={communication.image} alt="communication" />
+        <button
+          onClick={() =>
+            history.push(`/communication/edit/${communication.id}`)
+          }
+        >
+          Edit
+        </button>
+
+        <Button
+          className="btn btn-danger"
+          onClick={() => handleDelete(communication.id)}
+        >
           Delete
         </Button>
       </CardBody>

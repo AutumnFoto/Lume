@@ -4,7 +4,8 @@ namespace Lume.Repositories
 {
     public interface IUserProfileRepository
     {
-        void Add(UserProfile userProfile);
-        UserProfile GetByFirebaseId(string firebaseId);
+        void Add(userProfile userProfile);
+        userProfile GetByFirebaseUserId(string firebaseId);
+        
     }
 }

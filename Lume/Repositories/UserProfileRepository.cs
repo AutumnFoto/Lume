@@ -8,7 +8,7 @@ namespace Lume.Repositories
     {
         public UserProfileRepository(IConfiguration configuration) : base(configuration) { }
 
-        public UserProfile GetByFirebaseId(string firebaseId)
+        public userProfile GetByFirebaseUserId(string FireBaseUserId)
         {
             using (var conn = Connection)
             {
@@ -16,25 +16,26 @@ namespace Lume.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT up.Id, Up.FirebaseId, up.[Name]
-                               up.Email, up.ImageUrl,     
+                        SELECT up.Id, Up.FireBaseUserId, up.FirstName, up.LastName, 
+                               up.Email    
                           FROM UserProfile up      
-                         WHERE FirebaseId = @FirebaseId";
+                         WHERE FireBaseUserId = @FireBaseUserId";
 
-                    DbUtils.AddParameter(cmd, "@FirebaseId", firebaseId);
+                    DbUtils.AddParameter(cmd, "@FireBaseUserId", FireBaseUserId);
 
-                    UserProfile userProfile = null;
+                    userProfile userProfile = null;
 
-                    var reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    var reader = cmd.ExecuteReader(); 
+                    if (reader.Read()) 
                     {
-                        userProfile = new UserProfile()
+                        userProfile = new userProfile()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            FirebaseId = DbUtils.GetString(reader, "FirebaseId"),
-                            Name = DbUtils.GetString(reader, "Name"),
-                             Email = DbUtils.GetString(reader, "Email"),
-                            ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                            FireBaseUserId = DbUtils.GetString(reader, "FireBaseUserId"),
+                            FirstName = DbUtils.GetString(reader, "FirstName"),
+                            LastName = DbUtils.GetString(reader, "LastName"),
+                            Email = DbUtils.GetString(reader, "Email"),
+                            
                         };
                     }
                     reader.Close();
@@ -44,40 +45,27 @@ namespace Lume.Repositories
             }
         }
 
-        public void Add(UserProfile userProfile)
+        public void Add(userProfile userProfile)
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO UserProfile (FirebaseId,Name,
-                                                                 Email,ImageUrl)
+                    cmd.CommandText = @"INSERT INTO UserProfile (FireBaseUserId,FirstName,LastName,
+                                                                 Email)
                                         OUTPUT INSERTED.ID
-                                        VALUES (@FirebaseId, @Name,
-                                                @Email,@ImageUrl)";
-                    DbUtils.AddParameter(cmd, "@FirebaseId", userProfile.FirebaseId);
-                    DbUtils.AddParameter(cmd, "@Name", userProfile.Name);
+                                        VALUES (@FirebaseId, @FirstName,
+                                                @Email)";
+                    DbUtils.AddParameter(cmd, "@FireBaseUserId", userProfile.FireBaseUserId);
+                    DbUtils.AddParameter(cmd, "@FirstName", userProfile.FirstName);
+                    DbUtils.AddParameter(cmd, "@LastName", userProfile.LastName);
                     DbUtils.AddParameter(cmd, "@Email", userProfile.Email);
-                    DbUtils.AddParameter(cmd, "@ImageUrl", userProfile.ImageUrl);
 
                     userProfile.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }
 
-        /*
-        public UserProfile GetByFirebaseId(string firebaseId)
-        {
-            return _context.UserProfile
-                       .Include(up => up.UserType) 
-                       .FirstOrDefault(up => up.FirebaseUserId == firebaseUserId);
-        }
-        public void Add(UserProfile userProfile)
-        {
-            _context.Add(userProfile);
-            _context.SaveChanges();
-        }
-        */
     }
 }

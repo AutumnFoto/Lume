@@ -16,12 +16,12 @@ GO
 ---------------------------------------------------------------------
 CREATE TABLE [UserProfile] (
   [Id] INTEGER PRIMARY KEY IDENTITY NOT NULL,
-  [FirebaseId] INTEGER NOT NULL,
-  [Name] VARCHAR(25) NOT NULL,
+  [FirebaseUserId] VARCHAR(28) NOT NULL,
+  [FirstName] NVARCHAR(50) NOT NULL,
+  [LastName] NVARCHAR(50) NOT NULL,
   [Email] VARCHAR(255) NOT NULL,
-  [ImageUrl] VARCHAR(255) NULL,
-  [isAdmin] VARCHAR(255) NOT NULL,
- 
+
+  CONSTRAINT UQ_FirebaseUserId UNIQUE(FirebaseUserId)
 )
 GO
 
@@ -30,7 +30,7 @@ CREATE TABLE [CommunicationCards] (
   [Id] INTEGER PRIMARY KEY IDENTITY NOT NULL,
   [UserProfileId] INTEGER NOT NULL,
   [Content] VARCHAR(255) NOT NULL,
-  [Image] VARCHAR(255) NOT NULL,
+  [Image] VARCHAR(255) NULL,
 )
 GO
 
@@ -38,14 +38,13 @@ CREATE TABLE [SignLanguage] (
   [Id] INTEGER PRIMARY KEY IDENTITY NOT NULL,
   [UserProfileId] INTEGER NOT NULL,
   [Name] VARCHAR(255) NOT NULL,
-  [Image] VARCHAR(255) NOT NULL,
+  [Image] VARCHAR(255) NULL,
 )
 GO
 
 CREATE TABLE [PecsInfo] (
 [Id] INTEGER PRIMARY KEY IDENTITY NOT NULL,
-  [UserProfileId] INTEGER NOT NULL,
-  [Image] VARCHAR(255) NOT NULL,
+[Image] VARCHAR(255) NULL,
 )
 GO
 
@@ -58,6 +57,6 @@ ALTER TABLE [SignLanguage] ADD FOREIGN KEY ([UserProfileId])  REFERENCES [UserPr
 GO
 GO
 
-ALTER TABLE [PecsInfo] ADD FOREIGN KEY ([UserProfileId]) REFERENCES [UserProfile] ([Id])
+
 GO
 GO
