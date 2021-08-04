@@ -9,62 +9,62 @@ using System.Security.Claims;
 namespace Lume.Controllers
 {
     //[Authorize]
-    [Route("api/[controller]")] 
+    [Route("api/[controller]")]
     [ApiController]
-    public class CommunicationController : ControllerBase
+    public class SignLangController : ControllerBase
     {
-        private readonly ICommunicationRepository _communicationRepository;
+        private readonly ISignLangRepository _signLangRepository;
         private readonly IUserProfileRepository _userProfileRepository;
 
-        public CommunicationController(ICommunicationRepository communicationRepository, IUserProfileRepository userProfileRepository)
+        public SignLangController(ISignLangRepository _signLangRepository, IUserProfileRepository userProfileRepository)
         {
-            _communicationRepository = communicationRepository;
+            _signLangRepository = _signLangRepository;
             _userProfileRepository = userProfileRepository;
         }
         // GET: api/<CommunicationController>
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_communicationRepository.GetAllCommunication());
+            return Ok(_signLangRepository.GetAllSigns());
         }
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
 
         {
             //var user = GetCurrentUser();
-            return Ok(_communicationRepository.GetCommunicationByID(id));
+            return Ok(_signLangRepository.GetSignByID(id));
         }
         [HttpGet("ByCurrentUser")]
         public IActionResult GetByUserProfileId()
 
         {
             var user = GetCurrentUser();
-            return Ok(_communicationRepository.GetCommunicationByUserId(user.Id));
+            return Ok(_signLangRepository.GetSignByUserId(user.Id));
         }
         // POST api/<CommunicationController>
         [HttpPost]
-        public IActionResult Post(Communication communication)
+        public IActionResult Post(SignLang sign)
         {
             var currentUserProfile = GetCurrentUser();
-            communication.UserProfileId = currentUserProfile.Id;
+            sign.UserProfileId = currentUserProfile.Id;
 
-            _communicationRepository.Add(communication);
-            return CreatedAtAction(nameof(Get), new { id = communication.Id }, communication);
+            _signLangRepository.Add(sign);
+            return CreatedAtAction(nameof(Get), new { id = sign.Id }, sign);
         }
         [HttpPut]
-        public IActionResult Put(Communication communication)
+        public IActionResult Put(SignLang sign)
         {
             var currentUserProfile = GetCurrentUser();
-            communication.UserProfileId = currentUserProfile.Id;
+            sign.UserProfileId = currentUserProfile.Id;
 
-            _communicationRepository.UpdateCommunication(communication);
-            return CreatedAtAction(nameof(Get), new { id = communication.Id }, communication);
+            _signLangRepository.UpdateSign(sign);
+            return CreatedAtAction(nameof(Get), new { id = sign.Id }, sign);
         }
         // DELETE api/<CommunicationController>/5
         [HttpDelete("{id}")]
         public IActionResult DeleteById(int id)
         {
-            _communicationRepository.DeleteCom(id);
+            _signLangRepository.DeleteSign(id);
             return NoContent();
         }
         private userProfile GetCurrentUser()
@@ -83,4 +83,3 @@ namespace Lume.Controllers
         }
     }
 }
-
