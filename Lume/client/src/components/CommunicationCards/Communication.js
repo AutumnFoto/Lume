@@ -7,6 +7,7 @@ import {
   getComCardByCurrentUser,
 } from "../modules/CommunicationManager";
 
+//  bang changes false to true on the deleted use state
 const CommunicationCard = ({ communication, isDeleted, setIsDeleted }) => {
   const handleDelete = (id) => {
     if (window.confirm("Do you want to delete this card?")) {
@@ -17,7 +18,10 @@ const CommunicationCard = ({ communication, isDeleted, setIsDeleted }) => {
     }
   };
 
-  //  bang changes false to true on the deleted use state
+  // const handleImage = (event) => {
+  //   var IwantCards = document.getElementById(".iwant");
+  //   IwantCards.src = event.target.src;
+  // };
 
   const history = useHistory();
 
@@ -25,7 +29,13 @@ const CommunicationCard = ({ communication, isDeleted, setIsDeleted }) => {
     <Card className="CommunicationCard">
       <CardBody>
         <h3> {communication.content}</h3>
+
         <img src={communication.image} alt="communication" />
+        {/* <img
+          src={communication.image}
+          alt="communication"
+          onClick={() => handleImage()}
+        /> */}
         <button
           onClick={() =>
             history.push(`/communication/edit/${communication.id}`)

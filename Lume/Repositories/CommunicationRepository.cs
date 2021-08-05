@@ -5,12 +5,17 @@ using Lume.Utils;
 using Lume.Models;
 using Microsoft.AspNet.SignalR.Infrastructure;
 
+//repository is the database interface to the actual server.
+//namespace- makes it so all the code can talk to eachother, groups code for organizational purposes
+
 namespace Lume.Repositories
 {
     public class CommunicationRepository : BaseRepository, ICommunicationRepository
     {
         public CommunicationRepository(IConfiguration configuration) : base(configuration) { }
 
+        //list of communications 
+        //List<Communication> is the kind of data that returns from the GetAllCommunication method 
         public List<Communication> GetAllCommunication()
         {
             using (var conn = Connection)
@@ -23,13 +28,13 @@ namespace Lume.Repositories
                           FROM CommunicationCards
                          ORDER BY Content";
 
-                    var reader = cmd.ExecuteReader();
+                    var reader = cmd.ExecuteReader(); // reads and sends sql query to the server and waits for response 
 
-                    var communications = new List<Communication>();
-                    while (reader.Read())
+                    var communications = new List<Communication>(); // variable to hold the new list data 
+                    while (reader.Read()) //tries to read a record, and if successful keeps going until all records are read
                     {
 
-                        communications.Add(new Communication()
+                        communications.Add(new Communication() // going to add new communication properties 
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             Content = DbUtils.GetString(reader, "Content"),
@@ -39,7 +44,7 @@ namespace Lume.Repositories
 
                     reader.Close();
 
-                    return communications;
+                    return communications; // then give back those new communications 
                 }
             }
         }

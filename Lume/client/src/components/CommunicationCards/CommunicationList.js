@@ -24,6 +24,8 @@ const CommunicationList = () => {
 
   return (
     <>
+      {/* <img id="iwant" src="" alt="img" /> */}
+
       <h3> I want..</h3>
       <Link to={`/communication/create`}>Add A New Card</Link>
       <div>

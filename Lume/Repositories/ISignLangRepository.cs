@@ -14,7 +14,7 @@ namespace Lume.Repositories
 
         void UpdateSign(SignLang sign);
         public void DeleteSign(int id);
-
+    
     }
 
 }

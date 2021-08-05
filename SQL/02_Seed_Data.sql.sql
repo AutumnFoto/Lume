@@ -1,12 +1,12 @@
-﻿delete from UserProfile
-SET IDENTITY_INSERT [UserProfile] ON
+﻿
+SET IDENTITY_INSERT  [UserProfile] ON
 INSERT INTO [UserProfile]
     ([Id],[FirebaseUserId],[FirstName],[LastName],[Email])
 VALUES
     (1, 'Chj1Li0aVHeX2hlWCy36KULCwA43', 'Autumn','Fotopoulos','Acarte94@gmail.com'),
     (2, 'LTs3aRZvDmRjny8ZXYj2fiBmtX32', 'Nick','Fotopoulos','Nick@gmail.com');
   
-SET IDENTITY_INSERT [UserProfile] OFF
+SET IDENTITY_INSERT [UserProfile] OFF 
 
 delete from CommunicationCards
 SET IDENTITY_INSERT [CommunicationCards] ON

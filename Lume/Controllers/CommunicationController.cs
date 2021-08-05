@@ -6,11 +6,15 @@ using Lume.Models;
 using Lume.Repositories;
 using System.Security.Claims;
 
+//controller holds the rules/routes for the app 
+//class = definition of the object
 namespace Lume.Controllers
 {
     //[Authorize]
     [Route("api/[controller]")] 
     [ApiController]
+
+ 
     public class CommunicationController : ControllerBase
     {
         private readonly ICommunicationRepository _communicationRepository;
@@ -21,6 +25,10 @@ namespace Lume.Controllers
             _communicationRepository = communicationRepository;
             _userProfileRepository = userProfileRepository;
         }
+
+        // Ok= helper method shortcut to return response similar to 404 not found(json)
+        // HTTP- attribute helper, says this method only responds to specific verbs.( put, post, ect)
+
         // GET: api/<CommunicationController>
         [HttpGet]
         public IActionResult Get()
@@ -42,6 +50,8 @@ namespace Lume.Controllers
             return Ok(_communicationRepository.GetCommunicationByUserId(user.Id));
         }
         // POST api/<CommunicationController>
+
+      // createdataction- look up definition 
         [HttpPost]
         public IActionResult Post(Communication communication)
         {

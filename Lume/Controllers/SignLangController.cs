@@ -16,9 +16,9 @@ namespace Lume.Controllers
         private readonly ISignLangRepository _signLangRepository;
         private readonly IUserProfileRepository _userProfileRepository;
 
-        public SignLangController(ISignLangRepository _signLangRepository, IUserProfileRepository userProfileRepository)
+        public SignLangController(ISignLangRepository signLangRepository, IUserProfileRepository userProfileRepository)
         {
-            _signLangRepository = _signLangRepository;
+            _signLangRepository = signLangRepository;
             _userProfileRepository = userProfileRepository;
         }
         // GET: api/<CommunicationController>

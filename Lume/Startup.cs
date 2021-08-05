@@ -25,7 +25,7 @@ namespace Lume
 
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<ICommunicationRepository, CommunicationRepository>();
-
+            services.AddTransient<ISignLangRepository, SignLangRepository>();
 
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");

@@ -59,7 +59,7 @@ namespace Lume.Repositories
                         OUTPUT INSERTED.ID
 
                         VALUES
-                       (@Image,@Content, @UserProfileId)";
+                       (@Image,@Name, @UserProfileId)";
 
                     DbUtils.AddParameter(cmd, "@Image", sign.Image);
                     DbUtils.AddParameter(cmd, "@name", sign.Name);
@@ -81,7 +81,7 @@ namespace Lume.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "DELETE FROM SignLangague WHERE Id = @id";
+                    cmd.CommandText = "DELETE FROM SignLanguage WHERE Id =@id";
 
                     DbUtils.AddParameter(cmd,
                                          "@id",
@@ -182,7 +182,7 @@ namespace Lume.Repositories
                                       s.Id,
                                       s.UserProfileId
                                     FROM SignLanguage s
-                                   WHERE c.UserProfileId = @UserProfileId";
+                                   WHERE s.UserProfileId = @UserProfileId";
 
                     DbUtils.AddParameter(cmd, "@UserProfileId", userProfileId);
 
