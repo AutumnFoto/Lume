@@ -31,13 +31,13 @@ namespace Lume.Repositories
                     var reader = cmd.ExecuteReader(); // reads and sends sql query to the server and waits for response 
 
                     var communications = new List<Communication>(); // variable to hold the new list data 
-                    while (reader.Read()) //tries to read a record, and if successful keeps going until all records are read
+                    while (reader.Read()) // read each row, tries to read a record, and if successful keeps going until all records are read
                     {
 
                         communications.Add(new Communication() // going to add new communication properties 
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            Content = DbUtils.GetString(reader, "Content"),
+                            Content = DbUtils.GetString(reader, "Content"), // column names 
                             Image = DbUtils.GetString(reader, "Image"),
                         });
                     }

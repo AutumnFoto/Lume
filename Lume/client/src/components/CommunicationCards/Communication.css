@@ -2,27 +2,35 @@
   background-color: #b2dedd;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  margin-bottom: 1em;
-  margin-left: 8em;
-  width: 3cm;
-  height: 3cm;
+  margin-bottom: 3em;
+  margin-left: 15em;
+  width: 10px;
+  height: 10px;
   font-family: "Martel", serif;
   font-size: 18px;
   display: flex;
   flex-direction: row;
 }
-
-.CommunicationCard {
-  flex-direction: row;
+.container-communicationcard {
+  background-color: #fffbf0;
+  height: 160em;
+  width: 126em;
+  display: flex;
+  flex-wrap: wrap;
 }
-.delete-btn {
-  background-color: #0c0b0b;
+
+/* .CommunicationCard {
+  display: flex;
+  flex-direction: row;
+} */
+/* .delete-btn {
+  background-color: #05058f;
   color: white;
   justify-self: center;
-}
+} */
 
-.edit-btn {
+/* .edit-btn {
   background-color: #5b8181;
   color: #0c0c0c;
   /* padding: 3px 10px; */
-}
+/* } */

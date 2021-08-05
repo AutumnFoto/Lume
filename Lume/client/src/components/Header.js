@@ -10,6 +10,7 @@ import {
   NavLink,
 } from "reactstrap";
 import { logout } from "../components/modules/authManager";
+import "./Header.css";
 
 export default function Header({ isLoggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,11 +30,6 @@ export default function Header({ isLoggedIn }) {
           {isLoggedIn && (
             <>
               <NavItem>
-                <NavLink tag={RRNavLink} to="/">
-                  Communication
-                </NavLink>
-              </NavItem>
-              <NavItem>
                 <NavLink tag={RRNavLink} to="/Communication/">
                   Communication
                 </NavLink>
@@ -43,13 +39,23 @@ export default function Header({ isLoggedIn }) {
                   Signs
                 </NavLink>
               </NavItem>
+              <NavItem>
+                <a
+                  aria-current="page"
+                  className="nav-link"
+                  style={{ cursor: "pointer" }}
+                  onClick={logout}
+                >
+                  Logout
+                </a>
+              </NavItem>
             </>
           )}
 
           <Nav navbar>
             {isLoggedIn && (
               <>
-                <NavItem>
+                {/* <NavItem>
                   <a
                     aria-current="page"
                     className="nav-link"
@@ -58,7 +64,7 @@ export default function Header({ isLoggedIn }) {
                   >
                     Logout
                   </a>
-                </NavItem>
+                </NavItem> */}
               </>
             )}
             {!isLoggedIn && (

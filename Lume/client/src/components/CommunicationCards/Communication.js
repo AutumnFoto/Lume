@@ -1,13 +1,13 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import {
   deleteCommunication,
   getComCardByCurrentUser,
 } from "../modules/CommunicationManager";
-import "./CommunicationCard.css";
+import "./Communication.css";
 
 //  bang changes false to true on the deleted use state
 const CommunicationCard = ({ communication, isDeleted, setIsDeleted }) => {
@@ -39,21 +39,22 @@ const CommunicationCard = ({ communication, isDeleted, setIsDeleted }) => {
           onClick={() => handleImage()}
         /> */}
         <button
-          className="editbutton"
+          className="edit-btn"
           type="button"
           onClick={() =>
             history.push(`/communication/edit/${communication.id}`)
           }
         >
           Edit
-          <FontAwesomeIcon icon={faEdit} size="1x" className="edit" />
+          {/* <FontAwesomeIcon icon={faEdit} size="1x" className="edit" /> */}
         </button>
 
         <button
-          className="deletebutton"
+          className="delete-btn"
           onClick={() => handleDelete(communication.id)}
         >
-          Delete <FontAwesomeIcon icon={faEdit} size="1x" className="edit" />
+          Delete
+          {/* Delete <FontAwesomeIcon icon={faEdit} size="1x" className="edit" /> */}
         </button>
       </div>
     </div>
