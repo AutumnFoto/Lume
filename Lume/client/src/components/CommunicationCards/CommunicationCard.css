@@ -1,21 +1,20 @@
-.CommunicationCard {
+.CommunicationCardBody {
   background-color: #b2dedd;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   margin-bottom: 1em;
   margin-left: 8em;
-  width: 13cm;
-  height: 5cm;
+  width: 3cm;
+  height: 3cm;
   font-family: "Martel", serif;
   font-size: 18px;
+  display: flex;
+  flex-direction: row;
 }
 
-.container-CommunicationCard {
-  background-color: #fffbf0;
-  /* display:flex; */
-  padding: 1px 600px;
+.CommunicationCard {
+  flex-direction: row;
 }
-
 .delete-btn {
   background-color: #0c0b0b;
   color: white;

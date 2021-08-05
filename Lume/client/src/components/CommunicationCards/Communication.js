@@ -1,11 +1,13 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Button } from "reactstrap";
-import { Card, CardBody } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+
 import {
   deleteCommunication,
   getComCardByCurrentUser,
 } from "../modules/CommunicationManager";
+import "./CommunicationCard.css";
 
 //  bang changes false to true on the deleted use state
 const CommunicationCard = ({ communication, isDeleted, setIsDeleted }) => {
@@ -26,8 +28,8 @@ const CommunicationCard = ({ communication, isDeleted, setIsDeleted }) => {
   const history = useHistory();
 
   return (
-    <Card className="CommunicationCard">
-      <CardBody>
+    <div className="CommunicationCard">
+      <div className="CommmunicationCardBody">
         <h3> {communication.content}</h3>
 
         <img src={communication.image} alt="communication" />
@@ -37,21 +39,24 @@ const CommunicationCard = ({ communication, isDeleted, setIsDeleted }) => {
           onClick={() => handleImage()}
         /> */}
         <button
+          className="editbutton"
+          type="button"
           onClick={() =>
             history.push(`/communication/edit/${communication.id}`)
           }
         >
           Edit
+          <FontAwesomeIcon icon={faEdit} size="1x" className="edit" />
         </button>
 
-        <Button
-          className="btn btn-danger"
+        <button
+          className="deletebutton"
           onClick={() => handleDelete(communication.id)}
         >
-          Delete
-        </Button>
-      </CardBody>
-    </Card>
+          Delete <FontAwesomeIcon icon={faEdit} size="1x" className="edit" />
+        </button>
+      </div>
+    </div>
   );
 };
 
