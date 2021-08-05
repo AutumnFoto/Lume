@@ -1,29 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { addComCard } from "../modules/CommunicationManager";
+import { addSignCard } from "../modules/SignLangManager";
 
-const ComAddForm = () => {
+const SignAddForm = () => {
   const history = useHistory();
   // const { userProfileId } = useParams();
-  const [communication, setCommunication] = useState({
+  const [signs, setSigns] = useState({
     // userProfileId: userProfileId,
-    content: "",
+    name: "",
     image: "",
   });
 
   const handleInputChange = (event) => {
-    let newCommunication = { ...communication };
+    let newSignLang = { ...signs };
     let selectedValue = event.target.value;
-    newCommunication[event.target.id] = selectedValue;
-    setCommunication(newCommunication);
+    newSignLang[event.target.id] = selectedValue;
+    setSigns(newSignLang);
   };
 
   const handleSave = () => {
-    // communication.id = userProfileId;
-    addComCard(communication).then(() =>
+    addSignCard(signs).then(() =>
       // Navigate the user back to the home route
-      history.push(`/communication`)
+      history.push(`/signs`)
     );
   };
 
@@ -31,12 +30,12 @@ const ComAddForm = () => {
     <>
       <Form>
         <FormGroup>
-          <Label for="content">Communication</Label>
+          <Label for="name">Name</Label>
           <Input
             type="text"
-            id="content"
+            id="name"
             placeholder="text..."
-            value={communication.content}
+            value={signs.Name}
             onChange={handleInputChange}
           />
         </FormGroup>
@@ -47,7 +46,7 @@ const ComAddForm = () => {
             type="text"
             id="image"
             placeholder="img..."
-            value={communication.image}
+            value={signs.image}
             onChange={handleInputChange}
           />
         </FormGroup>
@@ -60,4 +59,4 @@ const ComAddForm = () => {
   );
 };
 
-export default ComAddForm;
+export default SignAddForm;

@@ -6,13 +6,16 @@ import Hello from "./Hello";
 import CommunicationList from "./CommunicationCards/CommunicationList";
 import ComAddForm from "../components/CommunicationCards/CommunicationAddForm";
 import ComEdit from "../components/CommunicationCards/ComEdit";
+import SignList from "../components/SignLanguage/SignLangList";
+import SignAddForm from "./SignLanguage/SignLangAdd";
+import PecsCard from "./PecsInfo/PecsInfo";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (
     <main>
       <Switch>
         <Route path="/" exact>
-          {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
+          {isLoggedIn ? <PecsCard /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/login">
@@ -30,6 +33,18 @@ export default function ApplicationViews({ isLoggedIn }) {
         <Route exact path="/communication/edit/:id">
           <ComEdit />
         </Route>
+
+        <Route exact path="/signs">
+          <SignList />
+        </Route>
+
+        <Route exact path="/signs/create">
+          <SignAddForm />
+        </Route>
+
+        {/* <Route exact path="/">
+          <PecsCard />
+        </Route> */}
 
         <Route path="/register">
           <Register />

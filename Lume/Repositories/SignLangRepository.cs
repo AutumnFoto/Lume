@@ -5,18 +5,13 @@ using Lume.Utils;
 using Lume.Models;
 using Microsoft.AspNet.SignalR.Infrastructure;
 
-//repository is the database interface to the actual server.
-//namespace- makes it so all the code can talk to eachother, groups code for organizational purposes
-
 namespace Lume.Repositories
 {
-    public class CommunicationRepository : BaseRepository, ICommunicationRepository
+    public class SignLangRepository : BaseRepository, ISignLangRepository
     {
-        public CommunicationRepository(IConfiguration configuration) : base(configuration) { }
+        public SignLangRepository(IConfiguration configuration) : base(configuration) { }
 
-        //list of communications 
-        //List<Communication> is the kind of data that returns from the GetAllCommunication method 
-        public List<Communication> GetAllCommunication()
+        public List<SignLang> GetAllSigns()
         {
             using (var conn = Connection)
             {
@@ -24,32 +19,32 @@ namespace Lume.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                         SELECT Id, Content, [Image]
-                          FROM CommunicationCards
-                         ORDER BY Content";
+                         SELECT Id,[Name], [Image]
+                          FROM SignLanguage
+                         ORDER BY [Name]";
 
-                    var reader = cmd.ExecuteReader(); // reads and sends sql query to the server and waits for response 
+                    var reader = cmd.ExecuteReader();
 
-                    var communications = new List<Communication>(); // variable to hold the new list data 
-                    while (reader.Read()) // read each row, tries to read a record, and if successful keeps going until all records are read
+                    var signs = new List<SignLang>();
+                    while (reader.Read())
                     {
 
-                        communications.Add(new Communication() // going to add new communication properties 
+                        signs.Add(new SignLang()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            Content = DbUtils.GetString(reader, "Content"), // column names 
+                            Name = DbUtils.GetString(reader, "Name"),
                             Image = DbUtils.GetString(reader, "Image"),
                         });
                     }
 
                     reader.Close();
 
-                    return communications; // then give back those new communications 
+                    return signs;
                 }
             }
         }
 
-        public void Add(Communication communication)
+        public void Add(SignLang sign)
         {
             using (var conn = Connection)
             {
@@ -57,36 +52,36 @@ namespace Lume.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO CommunicationCards
+                        INSERT INTO SignLanguage
 
-                        ([Image],Content, UserProfileId)
+                        ([Image],[Name], UserProfileId)
 
                         OUTPUT INSERTED.ID
 
                         VALUES
-                       (@Image,@Content, @UserProfileId)";
+                       (@Image,@Name, @UserProfileId)";
 
-                    DbUtils.AddParameter(cmd, "@Image", communication.Image);
-                    DbUtils.AddParameter(cmd, "@content", communication.Content);
-                    DbUtils.AddParameter(cmd, "@UserProfileId", communication.UserProfileId);
-                    
-
+                    DbUtils.AddParameter(cmd, "@Image", sign.Image);
+                    DbUtils.AddParameter(cmd, "@name", sign.Name);
+                    DbUtils.AddParameter(cmd, "@UserProfileId", sign.UserProfileId);
 
 
-                    communication.Id = (int)cmd.ExecuteScalar();
+
+
+                    sign.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }
 
 
-        public void DeleteCom(int id)
+        public void DeleteSign(int id)
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "DELETE FROM CommunicationCards WHERE Id = @id";
+                    cmd.CommandText = "DELETE FROM SignLanguage WHERE Id =@id";
 
                     DbUtils.AddParameter(cmd,
                                          "@id",
@@ -97,7 +92,7 @@ namespace Lume.Repositories
             }
         }
 
-     
+
 
         public userProfile GetByFirebaseUserId(string firebaseUserId)
         {
@@ -134,7 +129,7 @@ namespace Lume.Repositories
                 }
             }
         }
-        public Communication GetCommunicationByID(int id)
+        public SignLang GetSignByID(int id)
         {
             using (var conn = Connection)
             {
@@ -146,75 +141,75 @@ namespace Lume.Repositories
                                 SELECT
                                     c.Id,
                                     c.[Image],
-                                    c.content,
+                                    c.[Name],
                                     c.UserProfileId
-                                FROM CommunicationCards c
+                                FROM SignLanguage c
                                 where c.Id = @Id";
-                    
+
                     DbUtils.AddParameter(cmd, "@Id", id);
 
                     var reader = cmd.ExecuteReader();
 
-                    var communciation = new Communication();
+                    var Signs = new SignLang();
 
                     while (reader.Read())
                     {
-                        communciation.Id = DbUtils.GetInt(reader, "id");
-                        communciation.Image = DbUtils.GetString(reader, "Image");
-                        communciation.Content = DbUtils.GetString(reader, "Content");
-                        communciation.UserProfileId = DbUtils.GetInt(reader, "UserProfileId");
+                        Signs.Id = DbUtils.GetInt(reader, "id");
+                        Signs.Image = DbUtils.GetString(reader, "Image");
+                        Signs.Name = DbUtils.GetString(reader, "Name");
+                        Signs.UserProfileId = DbUtils.GetInt(reader, "UserProfileId");
 
                     }
 
                     reader.Close();
 
-                    return communciation;
+                    return Signs;
                 }
             }
         }
-        public List<Communication> GetCommunicationByUserId(int userProfileId)
+        public List<SignLang> GetSignByUserId(int userProfileId)
         {
             using (var conn = Connection)
             {
                 conn.Open();
-                
+
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @" 
                                 SELECT 
-                                      c.[image],
-                                      c.content,
-                                      c.Id,
-                                      c.UserProfileId
-                                    FROM CommunicationCards c
-                                   WHERE c.UserProfileId = @UserProfileId";
+                                      s.[Image],
+                                      s.[Name],
+                                      s.Id,
+                                      s.UserProfileId
+                                    FROM SignLanguage s
+                                   WHERE s.UserProfileId = @UserProfileId";
 
                     DbUtils.AddParameter(cmd, "@UserProfileId", userProfileId);
 
                     var reader = cmd.ExecuteReader();
 
-                    var communications = new List<Communication>();
+                    var signs = new List<SignLang>();
 
                     while (reader.Read())
                     {
 
-                        communications.Add(new Communication()
+                        signs.Add(new SignLang()
                         {
                             Id = DbUtils.GetInt(reader, "id"),
                             Image = DbUtils.GetString(reader, "Image"),
-                            Content = DbUtils.GetString(reader, "Content"),
+                            Name = DbUtils.GetString(reader, "Name"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                         });
                     }
 
                     reader.Close();
 
-                    return communications;
+                    return signs;
                 }
             }
         }
 
-        public void UpdateCommunication(Communication communication)
+        public void UpdateSign(SignLang sign)
         {
             using (var conn = Connection)
             {
@@ -222,15 +217,15 @@ namespace Lume.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        UPDATE CommunicationCards 
+                        UPDATE SignLangague 
                              SET
                              [Image] = @image,
-                             Content= @content
+                             [Name]= @name
                              WHERE Id =@id";
 
-                    DbUtils.AddParameter(cmd, "@Image", communication.Image);
-                    DbUtils.AddParameter(cmd,"@content",communication.Content);
-                    DbUtils.AddParameter(cmd,"@Id",communication.Id);
+                    DbUtils.AddParameter(cmd, "@Image", sign.Image);
+                    DbUtils.AddParameter(cmd, "@content", sign.Name);
+                    DbUtils.AddParameter(cmd, "@Id", sign.Id);
 
                     cmd.ExecuteNonQuery();
                 }

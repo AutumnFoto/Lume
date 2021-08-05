@@ -1,7 +1,7 @@
 ﻿using Lume.Models;
 using System.Collections.Generic;
 
-namespace Lume.Repositories
+namespace Lume.Repositories //interface is a contract with repository, if 
 {
     public interface ICommunicationRepository
     {
@@ -18,3 +18,6 @@ namespace Lume.Repositories
     }
 
 }
+
+//void - doesnt have return type 
+//public void makes it public, meaning anything outside of the class can refrence it  instead of private
