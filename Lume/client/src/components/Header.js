@@ -20,7 +20,7 @@ export default function Header({ isLoggedIn }) {
     <div>
       <Nav className=" navbar">
         <NavbarBrand tag={RRNavLink} to="/">
-          Lume
+          LUME
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>

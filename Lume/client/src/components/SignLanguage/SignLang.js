@@ -1,8 +1,7 @@
 import React from "react";
-// import { useHistory } from "react-router-dom";
-import { Button } from "reactstrap";
-import { Card, CardBody } from "reactstrap";
 import { deleteSigns, getSignByCurrentUser } from "../modules/SignLangManager";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const SignLangCard = ({ sign, isDeleted, setIsDeleted }) => {
   const handleDelete = (id) => {
@@ -16,22 +15,16 @@ const SignLangCard = ({ sign, isDeleted, setIsDeleted }) => {
 
   //  bang changes false to true on the deleted use state
 
-  //   const history = useHistory();
-
   return (
-    <Card className="SignCard">
-      <CardBody>
-        <h3> {sign.name}</h3>
-        <img src={sign.image} alt="signs" />
+    <div className="SignCard">
+      <h3 className="signname"> {sign.name}</h3>
+      <img className="image" src={sign.image} alt="signs" />
 
-        <Button
-          className="btn btn-danger"
-          onClick={() => handleDelete(sign.id)}
-        >
-          Delete
-        </Button>
-      </CardBody>
-    </Card>
+      <button className="deletesignbtn" onClick={() => handleDelete(sign.id)}>
+        Delete
+        <FontAwesomeIcon icon={faTrash} size="1x" className="delete" />
+      </button>
+    </div>
   );
 };
 

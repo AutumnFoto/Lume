@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import CommunicationCard from "./Communication";
-import {
-  getComCardByUserId,
-  deleteCommunication,
-} from "../modules/CommunicationManager";
-import { getCurrentUserProfileID } from "../modules/authManager";
 import { getComCardByCurrentUser } from "../modules/CommunicationManager";
+import "./Communication.css";
 
 const CommunicationList = () => {
   const [communication, setCommunication] = useState([]);
@@ -17,6 +13,7 @@ const CommunicationList = () => {
       setCommunication(communication)
     );
   };
+  const history = useHistory();
 
   useEffect(() => {
     getComCard();
@@ -24,26 +21,28 @@ const CommunicationList = () => {
 
   return (
     <>
-      {/* <img id="iwant" src="" alt="img" /> */}
       <section className="cardsection-content">
-        <div className="cards"></div>
-        <h3 classname="Iwant"> I want..</h3>
+        <h1 className="Iwant"> I want..</h1>
 
-        <Link to={`/communication/create`}>Add A New Card</Link>
+        <button
+          className="add-btn"
+          type="button"
+          onClick={() => history.push(`/communication/create`)}
+        >
+          {" "}
+          Add A New Card
+        </button>
       </section>
-      <div>
-        <div>
-          <div className="container-communicationcards">
-            {communication.map((communication) => (
-              <CommunicationCard
-                communication={communication}
-                key={communication.id}
-                setIsDeleted={setIsDeleted}
-                isDeleted={isDeleted}
-              />
-            ))}
-          </div>
-        </div>
+
+      <div className="container-CommmunicationCardBody">
+        {communication.map((communication) => (
+          <CommunicationCard
+            communication={communication}
+            key={communication.id}
+            setIsDeleted={setIsDeleted}
+            isDeleted={isDeleted}
+          />
+        ))}
       </div>
     </>
   );

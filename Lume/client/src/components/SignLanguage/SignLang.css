@@ -1,0 +1,27 @@
+.SignCard {
+  margin-top: 3cm;
+  margin-left: 0.3cm;
+  background-color: rgb(225, 245, 245);
+  width: 23%;
+}
+
+.image {
+  margin-bottom: 0.5cm;
+  margin-left: 2cm;
+  height: 370px;
+  width: 370px;
+}
+
+.container-CardBody {
+  margin-top: 1cm;
+  margin-left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.deletesignbtn {
+  margin-bottom: 0.3cm;
+  margin-left: 6cm;
+  background-color: #fde4d1;
+}

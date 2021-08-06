@@ -9,6 +9,7 @@ import ComEdit from "../components/CommunicationCards/ComEdit";
 import SignList from "../components/SignLanguage/SignLangList";
 import SignAddForm from "./SignLanguage/SignLangAdd";
 import PecsCard from "./PecsInfo/PecsInfo";
+import YNCard from "./YN/YN";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (
@@ -42,9 +43,9 @@ export default function ApplicationViews({ isLoggedIn }) {
           <SignAddForm />
         </Route>
 
-        {/* <Route exact path="/">
-          <PecsCard />
-        </Route> */}
+        <Route exact path="/YN">
+          <YNCard />
+        </Route>
 
         <Route path="/register">
           <Register />

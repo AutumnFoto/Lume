@@ -2,27 +2,7 @@ import { getToken } from "./authManager";
 
 const baseUrl = "/api/Communication";
 
-// getting all the communication cards
-export const getAllCommunications = () => {
-  return getToken().then((token) => {
-    return fetch(baseUrl, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        throw new Error(
-          "An unknown error occurred while trying to get all communications"
-        );
-      }
-    });
-  });
-};
-
-// getting cards by user
+// getting all cards by user
 export const getComCardByCurrentUser = () => {
   return getToken().then((token) => {
     return fetch(`${baseUrl}/ByCurrentUser`, {
