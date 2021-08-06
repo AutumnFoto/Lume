@@ -1,4 +1,4 @@
-.CommunicationCardBody {
+/* .CommunicationCardBody {
   background-color: #b2dedd;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border-radius: 5px;
@@ -9,28 +9,62 @@
   font-family: "Martel", serif;
   font-size: 18px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+} */
+
+.comimage {
+  width: 8cm;
+  height: 8cm;
+  margin-left: 3cm;
 }
-.container-communicationcard {
-  background-color: #fffbf0;
-  height: 160em;
-  width: 126em;
+
+.container-CommmunicationCardBody {
   display: flex;
   flex-wrap: wrap;
 }
 
-/* .CommunicationCard {
-  display: flex;
-  flex-direction: row;
-} */
-/* .delete-btn {
-  background-color: #05058f;
-  color: white;
-  justify-self: center;
-} */
+.CommmunicationCardBody {
+  margin-top: 3cm;
+  margin-left: 7cm;
+  background-color: #fde4d1;
+  width: 20%;
+  height: 400px;
+}
+.content {
+  text-align: center;
+}
+.Iwant {
+  background-color: rgb(208, 243, 243);
+  width: 50cm;
+  height: 6cm;
+  font-size: 4cm;
+  margin-left: 8cm;
+  margin-top: 2cm;
+  /* font-family: "Martel", serif; */
+}
 
-/* .edit-btn {
-  background-color: #5b8181;
-  color: #0c0c0c;
-  /* padding: 3px 10px; */
-/* } */
+.add-btn {
+  font-size: 0.5cm;
+  margin-left: 2cm;
+  background-color: #0f3252;
+  color: aliceblue;
+}
+
+.edit-btn {
+  background-color: rgb(243, 247, 207);
+  margin-top: 0.3cm;
+  margin-left: 5cm;
+  width: 2cm;
+  height: 0.7cm;
+}
+
+.delete-btn {
+  background-color: #e3e3ff;
+  width: 2cm;
+  height: 0.7cm;
+}
+
+/* body {
+  background-image: url("paper.gif");
+  background-color: #cccccc;
+} */

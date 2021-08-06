@@ -1,7 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import Draggable from "react-draggable";
 
 import {
   deleteCommunication,
@@ -20,24 +21,18 @@ const CommunicationCard = ({ communication, isDeleted, setIsDeleted }) => {
     }
   };
 
-  // const handleImage = (event) => {
-  //   var IwantCards = document.getElementById(".iwant");
-  //   IwantCards.src = event.target.src;
-  // };
-
   const history = useHistory();
 
   return (
-    <div className="CommunicationCard">
+    <Draggable>
       <div className="CommmunicationCardBody">
-        <h3> {communication.content}</h3>
+        <h3 className="content"> {communication.content}</h3>
 
-        <img src={communication.image} alt="communication" />
-        {/* <img
+        <img
+          className="comimage"
           src={communication.image}
           alt="communication"
-          onClick={() => handleImage()}
-        /> */}
+        />
         <button
           className="edit-btn"
           type="button"
@@ -46,7 +41,7 @@ const CommunicationCard = ({ communication, isDeleted, setIsDeleted }) => {
           }
         >
           Edit
-          {/* <FontAwesomeIcon icon={faEdit} size="1x" className="edit" /> */}
+          <FontAwesomeIcon icon={faEdit} size="1x" className="edit" />
         </button>
 
         <button
@@ -54,10 +49,10 @@ const CommunicationCard = ({ communication, isDeleted, setIsDeleted }) => {
           onClick={() => handleDelete(communication.id)}
         >
           Delete
-          {/* Delete <FontAwesomeIcon icon={faEdit} size="1x" className="edit" /> */}
+          <FontAwesomeIcon icon={faTrash} size="1x" className="delete" />
         </button>
       </div>
-    </div>
+    </Draggable>
   );
 };
 

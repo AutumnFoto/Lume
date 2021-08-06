@@ -5,9 +5,8 @@ import { addSignCard } from "../modules/SignLangManager";
 
 const SignAddForm = () => {
   const history = useHistory();
-  // const { userProfileId } = useParams();
+
   const [signs, setSigns] = useState({
-    // userProfileId: userProfileId,
     name: "",
     image: "",
   });

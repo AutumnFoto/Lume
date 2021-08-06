@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SignLangCard from "./SignLang";
-import {
-  getSignByUserId,
-  deleteSign,
-  getSignByCurrentUser,
-} from "../modules/SignLangManager";
-import { getCurrentUserProfileID } from "../modules/authManager";
+import { getSignByCurrentUser } from "../modules/SignLangManager";
+import "./SignLang.css";
 
 const SignList = () => {
   const [signs, setSigns] = useState([]);
@@ -20,11 +16,22 @@ const SignList = () => {
     getSignCard();
   }, [isDeleted]);
 
+  const history = useHistory();
+
   return (
     <>
-      <Link to={`/signs/create`}>Add A New Sign</Link>
+      <section className="signsection-content">
+        <button
+          className="add-btn"
+          type="button"
+          onClick={() => history.push(`/signs/create`)}
+        >
+          {" "}
+          Add A New Card
+        </button>
+      </section>
       <div>
-        <div>
+        <div className="container-CardBody">
           {signs.map((sign) => (
             <SignLangCard
               sign={sign}
