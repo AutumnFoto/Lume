@@ -5,4 +5,4 @@ I have two Austitic kids, one is my bonus son who is a teen and a toddler who is
 
 ## Figma 
 https://www.figma.com/file/LidWyO52N0nhXf3NwyYptj/backend-capstone?node-id=0%3A1
-![](/)
+![](/2021-09-01%2017_37_58-backend%20capstone%20–%20Figma.png)
