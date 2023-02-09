@@ -8,10 +8,8 @@ I have two Austitic kids, one is my bonus son who is a teen and a toddler who is
 
 ## Figma 
 https://www.figma.com/file/LidWyO52N0nhXf3NwyYptj/backend-capstone?node-id=0%3A1
-![](/homepage.png)
-![](/register.png)
-![](/schedule.png)
-![](/milestone.png)
+![](/backendcapstone.png)
+
 
 
 ## TechStack 
